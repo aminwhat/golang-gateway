@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 
+	db_package "github.com/aminwhat/golang-gateway/packages/db"
+	log_package "github.com/aminwhat/golang-gateway/packages/log"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -18,6 +20,11 @@ const (
 )
 
 func main() {
+	log_package.Info("Starting the Application")
+	dbConfig := db_package.DbConfig{DbName: "test_1"}
+
+	dbConfig.OpenSingleton("admin")
+
 	app := fiber.New()
 	app.Use(cors.New())
 	app.Use(logger.New())
